@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Leng Dei | លេងដី</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--td:#00604c;--t:#008b70;--tm:#45b7ab;--tl:#68cec3;--bl:#f1c2af;--sd:#af8378;--bd:#4f342f;--br:#77594f;--cr:#faf6f0;--wh:#fff}
+html{scroll-behavior:smooth}
+body{font-family:Arial,sans-serif;background:var(--cr);color:var(--bd);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+
+/* NAV - desktop horizontal */
+nav{position:fixed;top:0;left:0;width:100%;z-index:200;padding:.65rem 2rem;display:flex;justify-content:space-between;align-items:center;transition:background .3s}
+nav.scrolled{background:rgba(0,55,36,.97);box-shadow:0 2px 16px rgba(0,0,0,.25)}
+.nav-logo{display:flex;align-items:center;gap:.55rem;flex-shrink:0}
+.nav-logo img{height:34px;width:auto;object-fit:contain;filter:drop-shadow(0 1px 3px rgba(0,0,0,.4))}
+.nav-logo-text{display:flex;flex-direction:column;line-height:1.1}
+.nlen{font-size:.9rem;font-weight:700;color:#fff}
+.nkh{font-size:.78rem;color:rgba(255,255,255,.78)}
+
+/* Desktop horizontal menu */
+.nav-menu{display:flex;align-items:center;gap:0;list-style:none;flex-wrap:nowrap}
+.nav-item{position:relative}
+.nav-item>a,.nav-item>.ndrop{color:rgba(255,255,255,.88);font-size:.8rem;padding:.45rem .7rem;border-radius:6px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:.2rem;white-space:nowrap;font-weight:500;letter-spacing:.02em}
+.nav-item>a:hover,.nav-item>.ndrop:hover{color:#fff;background:rgba(255,255,255,.12)}
+.nav-cta{background:var(--t)!important;color:#fff!important;border-radius:20px!important;padding:.38rem .95rem!important;margin-left:.35rem}
+.nav-cta:hover{background:var(--td)!important}
+.drop{display:none;position:absolute;top:calc(100% + 4px);left:0;background:rgba(0,55,36,.98);border-radius:10px;min-width:160px;padding:.4rem;box-shadow:0 8px 28px rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.1);z-index:300}
+.nav-item:hover .drop{display:block}
+.drop a{display:block;padding:.45rem .85rem;color:rgba(255,255,255,.82);font-size:.78rem;border-radius:6px;transition:.15s}
+.drop a:hover{background:rgba(255,255,255,.12);color:#fff}
+
+/* Mobile toggle - hidden on desktop */
+.nav-toggle{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:4px}
+.nav-toggle span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:.3s}
+.nav-toggle.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+
+/* HERO */
+#hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('images/drone-overview.jpg') center/cover no-repeat;z-index:0}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,35,22,.85) 0%,rgba(0,60,38,.55) 50%,rgba(0,40,25,.4) 100%);z-index:1}
+#ptc{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
+.hero-inner{position:relative;z-index:3;padding:2rem;max-width:680px}
+.hero-logo-wrap{margin-bottom:1.5rem;animation:fl 5s ease-in-out infinite}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.hero-logo-wrap img{height:120px;width:auto;margin:0 auto;object-fit:contain;filter:drop-shadow(0 6px 20px rgba(0,0,0,.4))}
+.hero-kh{font-size:clamp(2rem,7vw,4rem);color:rgba(255,255,255,.93);line-height:1.2;margin-bottom:.2rem}
+.hero-en{font-size:clamp(2.5rem,8vw,5rem);font-weight:700;color:#fff;line-height:1;letter-spacing:-.02em;margin-bottom:.75rem}
+.hero-desc{font-size:clamp(.88rem,2vw,1.05rem);color:rgba(255,255,255,.8);margin:0 auto 2.25rem;line-height:1.75;max-width:560px}
+.hero-btns{display:flex;flex-wrap:wrap;gap:.85rem;justify-content:center}
+.btn{padding:.68rem 1.6rem;border-radius:50px;font-size:.88rem;font-weight:700;cursor:pointer;transition:.25s;border:2px solid;letter-spacing:.04em;display:inline-block}
+.btn-p{background:#fff;color:var(--td);border-color:#fff}
+.btn-p:hover{background:var(--bl);border-color:var(--bl);color:var(--bd)}
+.btn-o{background:transparent;color:#fff;border-color:rgba(255,255,255,.6)}
+.btn-o:hover{background:rgba(255,255,255,.13);border-color:#fff}
+.scroll-hint{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.45);font-size:.72rem;z-index:3;display:flex;flex-direction:column;align-items:center;gap:.3rem;animation:sh 2.5s ease-in-out infinite}
+.scroll-hint::after{content:'';display:block;width:1px;height:26px;background:rgba(255,255,255,.3)}
+@keyframes sh{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+
+/* SECTIONS */
+section{padding:5rem 1.5rem}
+.container{max-width:1080px;margin:0 auto}
+.tag{display:inline-block;background:var(--tl);color:var(--td);font-size:.7rem;font-weight:700;letter-spacing:.1em;padding:.28rem .85rem;border-radius:50px;margin-bottom:.85rem;text-transform:uppercase}
+.sec-title{font-size:clamp(1.7rem,4vw,2.5rem);font-weight:700;color:var(--td);line-height:1.2;margin-bottom:.7rem}
+.sec-sub{font-size:.97rem;color:var(--br);line-height:1.8;max-width:620px}
+
+/* ABOUT */
+#about{background:#fff}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start;margin-top:2.5rem}
+.lang-tabs{display:flex;gap:.4rem;margin-bottom:1.1rem}
+.ltab{padding:.28rem .8rem;border-radius:50px;border:1.5px solid var(--t);font-size:.76rem;cursor:pointer;transition:.2s;background:transparent;color:var(--td);font-weight:700}
+.ltab.active{background:var(--t);color:#fff}
+.lc{display:none;font-size:.93rem;color:var(--br);line-height:1.8}
+.lc.active{display:block}
+.lc p{margin-bottom:.85rem}
+.lc blockquote{border-left:3px solid var(--t);padding-left:1.1rem;font-style:italic;color:var(--td);font-size:.97rem;margin:1.1rem 0}
+.about-img-box{border-radius:20px;overflow:hidden}
+.about-img-box img{width:100%;height:340px;object-fit:cover}
+.about-img-cap{background:var(--td);color:#fff;padding:.6rem 1rem;font-size:.78rem;line-height:1.5}
+
+/* MUSHROOM BOX */
+.mycelium-box{background:var(--cr);border-radius:16px;padding:1.5rem;margin-top:1.25rem}
+.mycelium-box h3{font-size:.95rem;font-weight:700;color:var(--td);margin-bottom:.5rem}
+.mycelium-box p{font-size:.85rem;color:var(--br);line-height:1.7;margin-bottom:.5rem}
+.soil-layers{display:flex;flex-direction:column;gap:3px;margin-top:.75rem}
+.layer{padding:.4rem .85rem;border-radius:7px;font-size:.78rem;font-weight:700;color:#fff}
+.l1{background:#68cec3}.l2{background:#45b7ab}.l3{background:#008b70}.l4{background:#00604c}.l5{background:#4f342f}
+
+/* SOIL LIFE - placed after mushroom section */
+#soil-life{background:#fff;padding:4rem 1.5rem}
+#soil-life .tag{background:var(--tl);color:var(--td)}
+#soil-life .sec-title{color:var(--td)}
+#soil-life .sec-sub{color:var(--br)}
+.soil-wrap{border-radius:14px;overflow:hidden;margin-top:1.5rem;background:#1e5040}
+#sc{display:block;width:100%;height:260px}
+
+/* OUR STORY + TEAM hidden, accessible via menu */
+#story,#team{display:none}
+#story.visible,#team.visible{display:block}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center;margin-top:2.5rem}
+.story-text p{font-size:.93rem;color:var(--br);line-height:1.82;margin-bottom:.85rem}
+.story-text h3{font-size:1rem;font-weight:700;color:var(--td);margin:1.25rem 0 .5rem}
+.channels{display:flex;flex-direction:column;gap:.65rem;margin:.85rem 0}
+.channel{display:flex;gap:.8rem;align-items:flex-start;background:#fff;border-radius:12px;padding:.9rem 1rem}
+.ch-n{width:30px;height:30px;border-radius:50%;background:var(--t);color:#fff;font-weight:700;font-size:.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
+.ch-b h4{font-size:.88rem;font-weight:700;color:var(--td);margin-bottom:.18rem}
+.ch-b p{font-size:.82rem;color:var(--br);line-height:1.6}
+.story-img{border-radius:20px;overflow:hidden}
+.story-img img{width:100%;height:420px;object-fit:cover}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:1.25rem;margin-top:2.5rem}
+.team-card{background:var(--cr);border-radius:16px;padding:1.5rem;text-align:center}
+.team-av{width:64px;height:64px;border-radius:50%;background:var(--tl);margin:0 auto .85rem;display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#fff;font-weight:700}
+.team-card h3{font-size:.9rem;font-weight:700;color:var(--td);margin-bottom:.2rem}
+.team-card p{font-size:.78rem;color:var(--br)}
+
+/* PROGRAMS */
+#programs{background:var(--cr)}
+.prog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.4rem;margin-top:2.5rem}
+.prog-card{background:#fff;border-radius:18px;overflow:hidden;border:1.5px solid transparent;transition:.3s}
+.prog-card:hover{border-color:var(--tl);transform:translateY(-5px);box-shadow:0 18px 44px rgba(0,139,112,.11)}
+.prog-thumb{height:160px;display:flex;align-items:center;justify-content:center;font-size:3rem}
+.pt1{background:linear-gradient(135deg,#45b7ab,#008b70)}
+.pt2{background:linear-gradient(135deg,#68cec3,#45b7ab)}
+.pt3{background:linear-gradient(135deg,#008b70,#00604c)}
+.pt4{background:linear-gradient(135deg,#af8378,#77594f)}
+.pt5{background:linear-gradient(135deg,#f1c2af,#af8378)}
+.pt6{background:linear-gradient(135deg,#00604c,#4f342f)}
+.prog-body{padding:1.3rem}
+.prog-body h3{font-size:.97rem;font-weight:700;color:var(--td);margin-bottom:.4rem}
+.prog-body p{font-size:.84rem;color:var(--br);line-height:1.65}
+.prog-tag{display:inline-block;margin-top:.8rem;font-size:.72rem;font-weight:700;padding:.2rem .65rem;border-radius:50px;background:var(--cr);color:var(--td)}
+
+/* GALLERY SLIDER - landscape/phone ratio */
+#space{background:var(--td);padding:5rem 0;overflow:hidden}
+#space .container{padding:0 1.5rem}
+#space .sec-title{color:#fff}
+#space .sec-sub{color:rgba(255,255,255,.72)}
+#space .tag{background:rgba(255,255,255,.15);color:#fff}
+.slider-wrap{position:relative;margin-top:2rem;overflow:hidden;border-radius:18px}
+.slider-track{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+/* 16:9 landscape ratio like a horizontal phone photo */
+.slide{min-width:100%;aspect-ratio:16/9;flex-shrink:0;position:relative;overflow:hidden;background:#1a4a38;display:flex;align-items:center;justify-content:center}
+.slide img{width:100%;height:100%;object-fit:cover;object-position:center}
+.slide-cap{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,25,15,.72));padding:1.25rem 1.5rem .85rem;color:#fff;font-size:.86rem}
+.slide-cap strong{display:block;font-size:1rem;margin-bottom:.15rem}
+.sbtn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.3);color:#fff;width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:.2s;z-index:5}
+.sbtn:hover{background:rgba(255,255,255,.3)}
+.sprev{left:.85rem}.snext{right:.85rem}
+.sdots{display:flex;justify-content:center;gap:.5rem;margin-top:.9rem}
+.sdot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);border:none;cursor:pointer;transition:.3s;padding:0}
+.sdot.active{background:#fff;width:22px;border-radius:4px}
+
+/* IMPACT */
+#impact{background:var(--cr)}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1.1rem;margin-top:2.5rem}
+.scard{text-align:center;background:#fff;border-radius:16px;padding:1.6rem .8rem;transition:.3s}
+.scard:hover{background:var(--td);transform:translateY(-4px)}
+.scard:hover .snum,.scard:hover .slabel,.scard:hover .sico{color:#fff}
+.snum{font-size:2.4rem;font-weight:700;color:var(--t);display:block;transition:.3s}
+.slabel{font-size:.78rem;color:var(--br);margin-top:.2rem;line-height:1.4;transition:.3s}
+.sico{font-size:1.35rem;margin-bottom:.35rem;display:block;transition:.3s}
+.sdg-row{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem;justify-content:center;align-items:center}
+.sdg-badge{display:flex;align-items:center;gap:.5rem;padding:.38rem .85rem;border-radius:8px;font-size:.76rem;font-weight:700;color:#fff}
+.sdg-badge img{width:32px;height:32px;border-radius:4px;object-fit:cover}
+.sdg4{background:#c31f33}.sdg12{background:#bf8b2e}.sdg13{background:#3f7e44}.sdg15{background:#56c02b}
+
+/* VISION */
+#vision{background:linear-gradient(140deg,#4f342f 0%,#77594f 100%);color:#fff;text-align:center;padding:5rem 1.5rem}
+#vision .tag{background:rgba(255,255,255,.15);color:#fff}
+#vision .sec-title{color:#fff}
+#vision .sec-sub{color:rgba(255,255,255,.75);margin:0 auto 2.5rem}
+.vision-yr{display:block;font-size:clamp(5rem,14vw,9rem);font-weight:700;color:var(--tl);line-height:1;letter-spacing:-.04em;margin-bottom:.25rem}
+.vision-sub{font-size:1rem;color:rgba(255,255,255,.55);letter-spacing:.15em;text-transform:uppercase;margin-bottom:2.5rem}
+.vgoals{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.1rem}
+.vgoal{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.13);border-radius:14px;padding:1.6rem;text-align:left}
+.vgoal h3{font-size:2rem;font-weight:700;color:var(--tl);margin-bottom:.35rem}
+.vgoal p{font-size:.86rem;color:rgba(255,255,255,.78);line-height:1.65}
+
+/* FEATURED */
+#featured{background:#fff}
+.media-wrap{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem}
+.mbadge{display:flex;align-items:center;gap:.5rem;background:var(--cr);border:1.5px solid var(--tl);border-radius:9px;padding:.5rem 1rem;font-size:.8rem;color:var(--td);font-weight:700;transition:.2s}
+.mbadge:hover{background:var(--t);color:#fff;border-color:var(--t)}
+.mbadge .dot{width:7px;height:7px;border-radius:50%;background:var(--tm);flex-shrink:0;transition:.2s}
+.mbadge:hover .dot{background:rgba(255,255,255,.6)}
+
+/* CONTACT */
+#contact{background:var(--cr)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;margin-top:2.5rem;align-items:start}
+.contact-info h3{font-size:1.05rem;font-weight:700;color:var(--td);margin-bottom:1.1rem}
+.clinks{display:flex;flex-direction:column;gap:.65rem}
+.clink{display:flex;align-items:center;gap:.65rem;color:var(--br);font-size:.88rem;padding:.45rem .5rem;border-radius:8px;transition:.2s}
+.clink:hover{background:#fff;color:var(--td)}
+.cico{width:30px;height:30px;border-radius:7px;background:var(--t);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.85rem;flex-shrink:0}
+.form-card{background:#fff;border-radius:18px;padding:1.75rem;border:1px solid rgba(0,139,112,.1)}
+.form-card h3{font-size:1rem;font-weight:700;color:var(--td);margin-bottom:1.1rem}
+.fg{margin-bottom:.85rem}
+.fg label{display:block;font-size:.76rem;font-weight:700;color:var(--bd);margin-bottom:.3rem;letter-spacing:.04em;text-transform:uppercase}
+.fg input,.fg select,.fg textarea{width:100%;padding:.6rem .85rem;border:1.5px solid rgba(0,139,112,.2);border-radius:9px;font-family:Arial,sans-serif;font-size:.88rem;color:var(--bd);background:var(--cr);outline:none;transition:.2s}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--t);background:#fff}
+.fg textarea{resize:vertical;min-height:90px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.btn-sub{width:100%;padding:.75rem;background:var(--t);color:#fff;border:none;border-radius:50px;font-size:.9rem;font-weight:700;cursor:pointer;transition:.2s;margin-top:.4rem;letter-spacing:.04em}
+.btn-sub:hover{background:var(--td)}
+.form-ok{display:none;background:#e6f7f2;border:1.5px solid var(--tl);border-radius:10px;padding:1rem;text-align:center;color:var(--td);font-weight:700;margin-top:.75rem;font-size:.9rem}
+
+/* FOOTER */
+footer{background:var(--td);padding:1.75rem 1.5rem;text-align:center;color:rgba(255,255,255,.42);font-size:.76rem}
+footer a{color:rgba(255,255,255,.55);margin:0 .4rem}
+footer a:hover{color:#fff}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:.65rem 1rem}
+  .nav-item>a,.nav-item>.ndrop{font-size:.75rem;padding:.4rem .5rem}
+}
+@media(max-width:768px){
+  .about-grid,.story-grid,.contact-grid{grid-template-columns:1fr}
+  .story-img{display:none}
+  .frow{grid-template-columns:1fr}
+  /* Switch to dropdown on mobile */
+  .nav-menu{display:none;flex-direction:column;position:absolute;top:56px;left:0;right:0;background:rgba(0,55,36,.97);padding:1rem;gap:.1rem;z-index:200}
+  .nav-menu.open{display:flex}
+  .nav-toggle{display:flex}
+  .drop{position:static;box-shadow:none;border:none;background:rgba(255,255,255,.06);border-radius:8px;margin-top:.2rem;padding:.3rem}
+  .nav-item:hover .drop{display:none}
+  .nav-item.open .drop{display:block}
+}
+@media(max-width:480px){.prog-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">
+    <img src="images/leng-dei-logo.png" alt="Leng Dei">
+    <div class="nav-logo-text">
+      <span class="nlen">Leng Dei</span>
+      <span class="nkh">លេងដី</span>
+    </div>
+  </div>
+  <ul class="nav-menu" id="navMenu">
+    <li class="nav-item">
+      <span class="ndrop">About ▾</span>
+      <div class="drop">
+        <a href="#about">Who we are</a>
+        <a href="#story" onclick="showSection('story')">Our Story</a>
+        <a href="#team" onclick="showSection('team')">Our Team</a>
+      </div>
+    </li>
+    <li class="nav-item"><a href="#programs">Programs</a></li>
+    <li class="nav-item"><a href="#impact">Impact</a></li>
+    <li class="nav-item"><a href="#vision">Vision 2040</a></li>
+    <li class="nav-item"><a href="#featured">Media</a></li>
+    <li class="nav-item">
+      <span class="ndrop">Resources ▾</span>
+      <div class="drop">
+        <a href="#" onclick="return false">Composting Guide <em style="opacity:.5;font-size:.7rem">— soon</em></a>
+        <a href="#" onclick="return false">Garden Calendar <em style="opacity:.5;font-size:.7rem">— soon</em></a>
+        <a href="#" onclick="return false">Learning Materials <em style="opacity:.5;font-size:.7rem">— soon</em></a>
+      </div>
+    </li>
+    <li class="nav-item"><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <div class="nav-toggle" id="nt"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <canvas id="ptc"></canvas>
+  <div class="hero-inner">
+    <div class="hero-logo-wrap">
+      <img src="images/leng-dei-logo-white.png" alt="Leng Dei">
+    </div>
+    <div class="hero-kh">លេងដី</div>
+    <div class="hero-en">Leng Dei</div>
+    <div class="hero-desc">A social enterprise in Phnom Penh connecting people with soil, biodiversity &amp; environmental care — through food gardens, experiential tools &amp; a community of learners.</div>
+    <div class="hero-btns">
+      <a href="#programs" class="btn btn-p">Explore Programs</a>
+      <a href="#contact" class="btn btn-o">Get in Touch</a>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <span class="tag">About</span>
+    <div class="about-grid">
+      <div>
+        <h2 class="sec-title">What is Leng Dei?</h2>
+        <div class="lang-tabs">
+          <button class="ltab active" onclick="switchLang('en',this)">EN</button>
+          <button class="ltab" onclick="switchLang('kh',this)">KH</button>
+          <button class="ltab" onclick="switchLang('fr',this)">FR</button>
+        </div>
+        <div id="lc-en" class="lc active">
+          <p><em>"Leng Dei"</em> means <em>Play with the Soil</em> in Khmer. We are a social enterprise in Phnom Penh connecting people with soil, biodiversity, and environmental care.</p>
+          <p>Through food gardens, hands-on workshops, and a growing community of learners, we believe nature is the best teacher.</p>
+          <blockquote>"The soil is the foundation of life. Everything that grows, grows from it."</blockquote>
+          <p>Our 1,000m² educational food garden in the heart of Phnom Penh is a living classroom — open to everyone.</p>
+        </div>
+        <div id="lc-kh" class="lc">
+          <p>"លេងដី" មានន័យថា ការលេងជាមួយដី។ យើងជាសហគ្រាសសង្គមមួយ ភ្ជាប់ប្រជាជនជាមួយដី ជីវចម្រុះ និងការថែទាំបរិស្ថាន។</p>
+          <p>ចំការអាហាររបស់យើង ១,០០០ ម² ស្ថិតនៅចំកណ្តាលក្រុងភ្នំពេញ ជាថ្នាក់រៀនដ៏រស់រវើក — បើកចំហសម្រាប់រាល់គ្នា។</p>
+          <blockquote>"ដីគឺជាền ដ្ឋានជីវិត។"</blockquote>
+        </div>
+        <div id="lc-fr" class="lc">
+          <p><em>"Leng Dei"</em> signifie <em>Jouer avec la Terre</em> en khmer. Nous reconnectons les gens avec le sol, la biodiversité et l'environnement à Phnom Penh.</p>
+          <p>Notre jardin nourricier de 1 000 m² est une salle de classe vivante, ouverte à tous.</p>
+          <blockquote>"La terre est le fondement de la vie. Tout ce qui pousse, pousse d'elle."</blockquote>
+        </div>
+
+        <!-- MUSHROOM BOX -->
+        <div class="mycelium-box">
+          <h3>🍄 Why a mushroom?</h3>
+          <p>Mushrooms are the 1% visible part of fungi. The other 99% — the mycelium — forms invisible underground networks connecting all living things. Care, connection, and community rooted beneath the surface.</p>
+          <div class="soil-layers">
+            <div class="layer l1">🌿 Plants &amp; biodiversity</div>
+            <div class="layer l2">🍄 Fungi &amp; mycelium</div>
+            <div class="layer l3">🪱 Soil organisms</div>
+            <div class="layer l4">🌱 Nutrients &amp; roots</div>
+            <div class="layer l5">🌍 Earth — foundation of life</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="about-img-box">
+          <img src="images/group-photo.jpg" alt="Local Gathering at Leng Dei">
+          <div class="about-img-cap">Local Gathering · Mekong Cultural Hub 2025 · Phnom Penh, Cambodia</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOIL LIFE - right after mushroom/about section -->
+<section id="soil-life">
+  <div class="container">
+    <span class="tag">Soil Biodiversity</span>
+    <h2 class="sec-title">What lives beneath our feet</h2>
+    <p class="sec-sub">Hover to discover the hidden heroes of every garden — the creatures that make soil alive.</p>
+    <div class="soil-wrap"><canvas id="sc"></canvas></div>
+  </div>
+</section>
+
+<!-- OUR STORY (hidden, menu only) -->
+<section id="story" style="background:var(--cr)">
+  <div class="container">
+    <span class="tag">Our Story</span>
+    <div class="story-grid">
+      <div class="story-text">
+        <h2 class="sec-title">From a balcony kit to a living garden</h2>
+        <p>At Leng Dei, we believe we are growing disconnected from the materiality of our needs and from the interconnected nature of all living beings. As a result, exploited and polluted lives are at the heart of our development choices.</p>
+        <p>Leng Dei aspires to bring more fun and life quality to environmental education — empowering people to connect with soil, biodiversity and environmental care.</p>
+        <h3>3 mission channels</h3>
+        <div class="channels">
+          <div class="channel"><div class="ch-n">1</div><div class="ch-b"><h4>An empowering space</h4><p>A 1,000m² educational food garden in Phnom Penh — so people feel "Wow! I'm inspired to be part of this!"</p></div></div>
+          <div class="channel"><div class="ch-n">2</div><div class="ch-b"><h4>Empowering educational toolkits</h4><p>To compost, garden, cook, teach — so people feel "I did it! And I loved it! And many things clicked!"</p></div></div>
+          <div class="channel"><div class="ch-n">3</div><div class="ch-b"><h4>An empowering network</h4><p>For an ecologically literate world — where educators find programmes, share support, and grow together.</p></div></div>
+        </div>
+        <p>Started in 2019 as <em>Compost City</em>, winner of SmartSpark 3 at Impact Hub Phnom Penh. Since then: 500+ compost kits, 104 workshops, 1,600+ people trained.</p>
+      </div>
+      <div class="story-img"><img src="images/group-photo.jpg" alt="Community at Leng Dei"></div>
+    </div>
+  </div>
+</section>
+
+<!-- OUR TEAM (hidden, menu only) -->
+<section id="team" style="background:#fff">
+  <div class="container">
+    <span class="tag">Our Team</span>
+    <h2 class="sec-title">The people behind Leng Dei</h2>
+    <div class="team-grid">
+      <div class="team-card"><div class="team-av">S</div><h3>Samnang</h3><p>Co-founder &amp; Garden Lead</p></div>
+      <div class="team-card"><div class="team-av">M</div><h3>Monorom</h3><p>Co-founder &amp; Community</p></div>
+      <div class="team-card"><div class="team-av">C</div><h3>Chomrong</h3><p>Design &amp; Communications</p></div>
+      <div class="team-card" style="background:#f0faf7;border:1.5px dashed var(--tl)"><div class="team-av" style="background:var(--bl);color:var(--bd)">+</div><h3 style="color:var(--br)">Join us</h3><p>We're growing — reach out!</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section id="programs">
+  <div class="container">
+    <span class="tag">Programs &amp; Offerings</span>
+    <h2 class="sec-title">What we offer</h2>
+    <p class="sec-sub">From school gardens to composting kits — every program puts hands in the soil and minds open to nature.</p>
+    <div class="prog-grid">
+      <div class="prog-card"><div class="prog-thumb pt1">🏫</div><div class="prog-body"><h3>Food Garden School Program</h3><p>Set up a food garden at your school and engage students through grades and seasons.</p><span class="prog-tag">Schools &amp; Education</span></div></div>
+      <div class="prog-card"><div class="prog-thumb pt2">🌱</div><div class="prog-body"><h3>Weekend Community Gardening</h3><p>Subscribe for 3 months and come garden with us every weekend. Get your hands dirty, together.</p><span class="prog-tag">Community</span></div></div>
+      <div class="prog-card"><div class="prog-thumb pt3">🌿</div><div class="prog-body"><h3>Immersive Workshops &amp; Visits</h3><p>Composting, seasonal cooking, agroecology, ecological art. Tailored to your group's needs.</p><span class="prog-tag">Workshops</span></div></div>
+      <div class="prog-card"><div class="prog-thumb pt4">🏡</div><div class="prog-body"><h3>Venue Rental</h3><p>Rent our traditional Khmer wooden house and garden to lead your own sessions in a space rooted in care.</p><span class="prog-tag">Space</span></div></div>
+      <div class="prog-card"><div class="prog-thumb pt5">♻️</div><div class="prog-body"><h3>Compost City Kit</h3><p>Say no to landfills. Turn kitchen scraps into compost on your balcony. 500+ sold!</p><span class="prog-tag">Home Composting</span></div></div>
+      <div class="prog-card"><div class="prog-thumb pt6">🔬</div><div class="prog-body"><h3>Learning Lab</h3><p>Participatory science, ecological art, regenerative hydrology — for educators &amp; curious minds.</p><span class="prog-tag">Research &amp; Innovation</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY SLIDER - 16:9 landscape -->
+<section id="space">
+  <div class="container">
+    <span class="tag">The Space</span>
+    <h2 class="sec-title">A living classroom in Phnom Penh</h2>
+    <p class="sec-sub">A traditional Khmer wooden house, a veggie garden with 50+ local food species, and a growing community — in the heart of the city.</p>
+    <div class="slider-wrap">
+      <div class="slider-track" id="sliderTrack">
+        <div class="slide">
+          <img src="images/drone-overview.jpg" alt="Aerial view of Leng Dei">
+          <div class="slide-cap"><strong>Aerial view · Leng Dei Garden</strong>1,000m² of urban food garden in Phnom Penh</div>
+        </div>
+        <div class="slide">
+          <img src="images/group-photo.jpg" alt="Community gathering">
+          <div class="slide-cap"><strong>Local Gathering · Mekong Cultural Hub 2025</strong>The community comes together at Leng Dei</div>
+        </div>
+        <!-- Add slides: <div class="slide"><img src="images/your-photo.jpg" alt="..."><div class="slide-cap"><strong>Title</strong>Caption</div></div> -->
+      </div>
+      <button class="sbtn sprev" onclick="slideMove(-1)">&#8249;</button>
+      <button class="sbtn snext" onclick="slideMove(1)">&#8250;</button>
+    </div>
+    <div class="sdots" id="sdots"></div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section id="impact">
+  <div class="container">
+    <span class="tag">Impact · 2025</span>
+    <h2 class="sec-title">Rooted in real numbers</h2>
+    <p class="sec-sub">Every stat is a relationship, a workshop, a hand in the soil.</p>
+    <div class="stats-grid">
+      <div class="scard"><span class="sico">🧑‍🌾</span><span class="snum counter" data-t="470">0</span><div class="slabel">Visitors to Leng Dei in 2025</div></div>
+      <div class="scard"><span class="sico">📚</span><span class="snum counter" data-t="1870">0</span><div class="slabel">Workshop trainees (all time)</div></div>
+      <div class="scard"><span class="sico">🎓</span><span class="snum counter" data-t="61">0</span><div class="slabel">Workshops &amp; events in 2024</div></div>
+      <div class="scard"><span class="sico">♻️</span><span class="snum counter" data-t="500">0</span><div class="slabel">Compost kits sold</div></div>
+      <div class="scard"><span class="sico">🌿</span><span class="snum counter" data-t="50">0</span><div class="slabel">Local food species in garden</div></div>
+    </div>
+    <div class="sdg-row">
+      <span style="font-size:.83rem;color:var(--br);font-weight:700;align-self:center">SDGs:</span>
+      <span class="sdg-badge sdg4"><img src="images/sdg4.png" alt="SDG 4">Quality Education</span>
+      <span class="sdg-badge sdg12"><img src="images/sdg12.png" alt="SDG 12">Responsible Consumption</span>
+      <span class="sdg-badge sdg13"><img src="images/sdg13.png" alt="SDG 13">Climate Action</span>
+      <span class="sdg-badge sdg15"><img src="images/sdg15.png" alt="SDG 15">Life on Land</span>
+    </div>
+  </div>
+</section>
+
+<!-- VISION -->
+<section id="vision">
+  <div class="container">
+    <span class="tag">Vision</span>
+    <h2 class="sec-title">Growing a movement</h2>
+    <p class="sec-sub">Our long-term vision for Cambodia and beyond.</p>
+    <span class="vision-yr">2040</span>
+    <div class="vision-sub">Our horizon</div>
+    <div class="vgoals">
+      <div class="vgoal"><h3>1,000</h3><p>Urban food gardens grown and nurtured as earth-connected classrooms across Cambodia</p></div>
+      <div class="vgoal"><h3>1,000</h3><p>Educators in an inclusive, collaborative network for lively and fun ecology education</p></div>
+      <div class="vgoal"><h3>10,000 m²</h3><p>Of urban space turned into educational food gardens by 2030</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED -->
+<section id="featured">
+  <div class="container">
+    <span class="tag">As Seen In · Media</span>
+    <h2 class="sec-title">Recognized &amp; featured</h2>
+    <p class="sec-sub">From global summits to local gatherings — Leng Dei's story is being told.</p>
+    <div class="media-wrap">
+      <a href="https://www.listeningproject.art/" target="_blank" class="mbadge"><span class="dot"></span>The Listening Project</a>
+      <a href="https://www.mekongculturalhub.org/news/2025/01/local-gatherings-2025/" target="_blank" class="mbadge"><span class="dot"></span>Mekong Cultural Hub</a>
+      <a href="https://www.youtube.com/watch?v=csxn5x93XBo" target="_blank" class="mbadge"><span class="dot"></span>YouTube Interview ↗</a>
+      <a href="https://kh.boell.org/en/2025/05/28/dirt-earth-composting-away-our-waste" target="_blank" class="mbadge"><span class="dot"></span>Heinrich Böll Stiftung</a>
+      <a href="https://phnompenh.impacthub.net/impact_library/compost-city/" target="_blank" class="mbadge"><span class="dot"></span>Impact Hub Phnom Penh</a>
+      <a href="https://build4people.org/publication-of-the-7th-video-clip-in-the-context-of-the-build4people-online-exhibition-cambodias-green-pioneers/" target="_blank" class="mbadge"><span class="dot"></span>Build4People Green Pioneers</a>
+      <span class="mbadge"><span class="dot"></span>HEARTH Summit · Ljubljana</span>
+      <span class="mbadge"><span class="dot"></span>Plant Planet Plate · Nat Geo</span>
+      <span class="mbadge"><span class="dot"></span>Meeting Point · Vientiane</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <span class="tag">Contact</span>
+    <h2 class="sec-title">Find us in Phnom Penh</h2>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Get in touch</h3>
+        <div class="clinks">
+          <a href="mailto:lengdeigarden@gmail.com" class="clink"><div class="cico">✉</div>lengdeigarden@gmail.com</a>
+          <a href="https://t.me/+85577467892" target="_blank" class="clink"><div class="cico">📱</div>Telegram: Monorom (+855 77 467 892)</a>
+          <a href="https://www.facebook.com/lengdeigarden/" target="_blank" class="clink"><div class="cico">f</div>Facebook: lengdeigarden</a>
+          <a href="https://www.instagram.com/leng_dei/" target="_blank" class="clink"><div class="cico">📸</div>Instagram: @leng_dei</a>
+          <a href="https://maps.app.goo.gl/mL9Ud9uqwoWMm1xF7" target="_blank" class="clink"><div class="cico">📍</div>Find us on Google Maps</a>
+        </div>
+      </div>
+      <div class="form-card">
+        <h3>Send an inquiry</h3>
+        <div class="frow">
+          <div class="fg"><label>Name</label><input type="text" id="fi-name" placeholder="Your name"></div>
+          <div class="fg"><label>Email</label><input type="email" id="fi-email" placeholder="your@email.com"></div>
+        </div>
+        <div class="fg">
+          <label>I'm interested in</label>
+          <select id="fi-type">
+            <option value="">Select a topic…</option>
+            <option>Booking a workshop</option>
+            <option>School program</option>
+            <option>Venue rental</option>
+            <option>Compost City Kit</option>
+            <option>Partnership / collaboration</option>
+            <option>Donation / funding</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="fg"><label>Message</label><textarea id="fi-msg" placeholder="Tell us more…"></textarea></div>
+        <button class="btn-sub" onclick="submitForm()">Send Message</button>
+        <div class="form-ok" id="form-ok"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Leng Dei | លេងដី &nbsp;·&nbsp; Phnom Penh, Cambodia</p>
+  <p style="margin-top:.4rem">
+    <a href="https://www.facebook.com/lengdeigarden/" target="_blank">Facebook</a>
+    <a href="https://www.instagram.com/leng_dei/" target="_blank">Instagram</a>
+    <a href="mailto:lengdeigarden@gmail.com">Email</a>
+  </p>
+</footer>
+
+<script>
+// Nav scroll
+window.addEventListener('scroll',function(){
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60);
+});
+
+// Mobile hamburger toggle
+document.getElementById('nt').addEventListener('click',function(){
+  this.classList.toggle('open');
+  document.getElementById('navMenu').classList.toggle('open');
+});
+
+// Mobile: tap ndrop to open submenu (not hover)
+if(window.innerWidth<=768){
+  document.querySelectorAll('.ndrop').forEach(function(nd){
+    nd.addEventListener('click',function(){
+      var li=this.parentElement;
+      li.classList.toggle('open');
+    });
+  });
+}
+
+// Close mobile menu on link click
+document.querySelectorAll('#navMenu a').forEach(function(a){
+  a.addEventListener('click',function(){
+    document.getElementById('navMenu').classList.remove('open');
+    document.getElementById('nt').classList.remove('open');
+  });
+});
+
+// Language tabs
+function switchLang(l,btn){
+  document.querySelectorAll('.lc').forEach(function(el){el.classList.remove('active');});
+  document.querySelectorAll('.ltab').forEach(function(b){b.classList.remove('active');});
+  document.getElementById('lc-'+l).classList.add('active');
+  btn.classList.add('active');
+}
+
+// Show hidden sections (Our Story / Our Team)
+function showSection(id){
+  var el=document.getElementById(id);
+  if(el){el.classList.add('visible');setTimeout(function(){el.scrollIntoView({behavior:'smooth'});},50);}
+}
+
+// Particles
+(function(){
+  var c=document.getElementById('ptc'),ctx=c.getContext('2d'),pts=[];
+  function resize(){c.width=c.offsetWidth;c.height=c.offsetHeight;init();}
+  function init(){
+    pts=[];
+    var n=Math.floor(c.width*c.height/9000);
+    for(var i=0;i<n;i++) pts.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*2.5+.5,vx:(Math.random()-.5)*.35,vy:-(Math.random()*.4+.15),a:Math.random()*.5+.1,col:Math.random()>.5?'104,206,195':'241,194,175'});
+  }
+  function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    pts.forEach(function(p){
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle='rgba('+p.col+','+p.a+')';ctx.fill();
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.y<-10)p.y=c.height+10;
+      if(p.x<-10)p.x=c.width+10;
+      if(p.x>c.width+10)p.x=-10;
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize',resize);
+  resize();draw();
+})();
+
+// Slider
+var slideIdx=0;
+var slides=document.querySelectorAll('.slide');
+var track=document.getElementById('sliderTrack');
+var dotsEl=document.getElementById('sdots');
+slides.forEach(function(_,i){
+  var d=document.createElement('button');
+  d.className='sdot'+(i===0?' active':'');
+  d.onclick=function(){goSlide(i);};
+  dotsEl.appendChild(d);
+});
+function goSlide(n){
+  slideIdx=Math.max(0,Math.min(n,slides.length-1));
+  track.style.transform='translateX(-'+slideIdx*100+'%)';
+  document.querySelectorAll('.sdot').forEach(function(d,i){d.classList.toggle('active',i===slideIdx);});
+}
+function slideMove(dir){goSlide(slideIdx+dir);}
+setInterval(function(){goSlide((slideIdx+1)%slides.length);},5000);
+
+// Counters
+function runCounters(){
+  document.querySelectorAll('.counter').forEach(function(el){
+    var target=+el.dataset.t,dur=1800,step=target/dur*16,cur=0;
+    var tm=setInterval(function(){
+      cur=Math.min(cur+step,target);
+      el.textContent=Math.round(cur).toLocaleString()+(target>=100?'+':'');
+      if(cur>=target)clearInterval(tm);
+    },16);
+  });
+}
+var counted=false;
+var io=new IntersectionObserver(function(entries){
+  if(entries[0].isIntersecting&&!counted){counted=true;runCounters();}
+},{threshold:.3});
+io.observe(document.getElementById('impact'));
+
+// Soil canvas
+(function(){
+  var c=document.getElementById('sc');
+  if(!c)return;
+  var ctx=c.getContext('2d'),W=c.offsetWidth,H=260;
+  c.width=W;c.height=H;
+  var cr=[
+    {e:'🪱',x:100,y:150,vx:.6,vy:0,lbl:'Earthworm'},
+    {e:'🐛',x:300,y:180,vx:-.5,vy:.2,lbl:'Larva'},
+    {e:'🍄',x:500,y:100,vx:.3,vy:0,lbl:'Fungi'},
+    {e:'🐜',x:200,y:220,vx:.8,vy:-.3,lbl:'Ant'},
+    {e:'🦠',x:400,y:80,vx:-.4,vy:.4,lbl:'Microbe'},
+    {e:'🌱',x:600,y:190,vx:.2,vy:0,lbl:'Seed'}
+  ];
+  var hov=null;
+  c.addEventListener('mousemove',function(e){
+    var r=c.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top;
+    hov=null;cr.forEach(function(x){if(Math.hypot(x.x-mx,x.y-my)<24)hov=x;});
+  });
+  c.addEventListener('mouseleave',function(){hov=null;});
+  function draw(){
+    var g=ctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,'#1e5040');g.addColorStop(.5,'#183d30');g.addColorStop(1,'#4f342f');
+    ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    cr.forEach(function(x){
+      x.x+=x.vx;x.y+=x.vy;
+      if(x.x<20||x.x>W-20)x.vx*=-1;
+      if(x.y<20||x.y>H-20)x.vy*=-1;
+      ctx.font='22px serif';ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText(x.e,x.x,x.y);
+      if(hov===x){
+        ctx.fillStyle='rgba(0,0,0,.55)';ctx.beginPath();
+        ctx.rect(x.x-45,x.y-42,90,22);ctx.fill();
+        ctx.fillStyle='#fff';ctx.font='11px Arial';ctx.fillText(x.lbl,x.x,x.y-31);
+      }
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+  window.addEventListener('resize',function(){W=c.offsetWidth;c.width=W;});
+})();
+
+// Form
+function submitForm(){
+  var n=document.getElementById('fi-name').value.trim();
+  var e=document.getElementById('fi-email').value.trim();
+  var m=document.getElementById('fi-msg').value.trim();
+  if(!n||!e){alert('Please fill in your name and email.');return;}
+  var t=document.getElementById('fi-type').value;
+  var ok=document.getElementById('form-ok');
+  ok.style.display='block';
+  ok.textContent='Thanks '+n+'! We\'ll reply to '+e+' soon.';
+  var subj=encodeURIComponent('Leng Dei inquiry'+(t?' — '+t:''));
+  var body=encodeURIComponent('Name: '+n+'\nEmail: '+e+'\nTopic: '+t+'\n\n'+m);
+  window.location.href='mailto:lengdeigarden@gmail.com?subject='+subj+'&body='+body;
+}
+</script>
+</body>
+</html>
