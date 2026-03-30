@@ -11,8 +11,7 @@ html{scroll-behavior:smooth}
 body{font-family:Arial,sans-serif;background:var(--cr);color:var(--bd);overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
-
-/* NAV - desktop horizontal */
+/* NAV */
 nav{position:fixed;top:0;left:0;width:100%;z-index:200;padding:.65rem 2rem;display:flex;justify-content:space-between;align-items:center;transition:background .3s}
 nav.scrolled{background:rgba(0,55,36,.97);box-shadow:0 2px 16px rgba(0,0,0,.25)}
 .nav-logo{display:flex;align-items:center;gap:.55rem;flex-shrink:0}
@@ -20,8 +19,6 @@ nav.scrolled{background:rgba(0,55,36,.97);box-shadow:0 2px 16px rgba(0,0,0,.25)}
 .nav-logo-text{display:flex;flex-direction:column;line-height:1.1}
 .nlen{font-size:.9rem;font-weight:700;color:#fff}
 .nkh{font-size:.78rem;color:rgba(255,255,255,.78)}
-
-/* Desktop horizontal menu */
 .nav-menu{display:flex;align-items:center;gap:0;list-style:none;flex-wrap:nowrap}
 .nav-item{position:relative}
 .nav-item>a,.nav-item>.ndrop{color:rgba(255,255,255,.88);font-size:.8rem;padding:.45rem .7rem;border-radius:6px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:.2rem;white-space:nowrap;font-weight:500;letter-spacing:.02em}
@@ -32,23 +29,20 @@ nav.scrolled{background:rgba(0,55,36,.97);box-shadow:0 2px 16px rgba(0,0,0,.25)}
 .nav-item:hover .drop{display:block}
 .drop a{display:block;padding:.45rem .85rem;color:rgba(255,255,255,.82);font-size:.78rem;border-radius:6px;transition:.15s}
 .drop a:hover{background:rgba(255,255,255,.12);color:#fff}
-
-/* Mobile toggle - hidden on desktop */
 .nav-toggle{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:4px}
 .nav-toggle span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:.3s}
 .nav-toggle.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
 .nav-toggle.open span:nth-child(2){opacity:0}
 .nav-toggle.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
-
 /* HERO */
 #hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:url('images/drone-overview.jpg') center/cover no-repeat;z-index:0}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#003d28 0%,#00604c 40%,#1a7a5e 70%,#2d9e7a 100%);z-index:0}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,35,22,.85) 0%,rgba(0,60,38,.55) 50%,rgba(0,40,25,.4) 100%);z-index:1}
 #ptc{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
 .hero-inner{position:relative;z-index:3;padding:2rem;max-width:680px}
 .hero-logo-wrap{margin-bottom:1.5rem;animation:fl 5s ease-in-out infinite}
 @keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.hero-logo-wrap img{height:120px;width:auto;margin:0 auto;object-fit:contain;filter:drop-shadow(0 6px 20px rgba(0,0,0,.4))}
+.hero-logo-wrap .logo-placeholder{width:120px;height:120px;margin:0 auto;background:rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:3.5rem;border:2px solid rgba(255,255,255,.3)}
 .hero-kh{font-size:clamp(2rem,7vw,4rem);color:rgba(255,255,255,.93);line-height:1.2;margin-bottom:.2rem}
 .hero-en{font-size:clamp(2.5rem,8vw,5rem);font-weight:700;color:#fff;line-height:1;letter-spacing:-.02em;margin-bottom:.75rem}
 .hero-desc{font-size:clamp(.88rem,2vw,1.05rem);color:rgba(255,255,255,.8);margin:0 auto 2.25rem;line-height:1.75;max-width:560px}
@@ -61,14 +55,12 @@ nav.scrolled{background:rgba(0,55,36,.97);box-shadow:0 2px 16px rgba(0,0,0,.25)}
 .scroll-hint{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.45);font-size:.72rem;z-index:3;display:flex;flex-direction:column;align-items:center;gap:.3rem;animation:sh 2.5s ease-in-out infinite}
 .scroll-hint::after{content:'';display:block;width:1px;height:26px;background:rgba(255,255,255,.3)}
 @keyframes sh{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
-
 /* SECTIONS */
 section{padding:5rem 1.5rem}
 .container{max-width:1080px;margin:0 auto}
 .tag{display:inline-block;background:var(--tl);color:var(--td);font-size:.7rem;font-weight:700;letter-spacing:.1em;padding:.28rem .85rem;border-radius:50px;margin-bottom:.85rem;text-transform:uppercase}
 .sec-title{font-size:clamp(1.7rem,4vw,2.5rem);font-weight:700;color:var(--td);line-height:1.2;margin-bottom:.7rem}
 .sec-sub{font-size:.97rem;color:var(--br);line-height:1.8;max-width:620px}
-
 /* ABOUT */
 #about{background:#fff}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start;margin-top:2.5rem}
@@ -80,9 +72,8 @@ section{padding:5rem 1.5rem}
 .lc p{margin-bottom:.85rem}
 .lc blockquote{border-left:3px solid var(--t);padding-left:1.1rem;font-style:italic;color:var(--td);font-size:.97rem;margin:1.1rem 0}
 .about-img-box{border-radius:20px;overflow:hidden}
-.about-img-box img{width:100%;height:340px;object-fit:cover}
+.about-img-box .img-placeholder{width:100%;height:340px;background:linear-gradient(135deg,var(--tl),var(--t));display:flex;align-items:center;justify-content:center;font-size:4rem}
 .about-img-cap{background:var(--td);color:#fff;padding:.6rem 1rem;font-size:.78rem;line-height:1.5}
-
 /* MUSHROOM BOX */
 .mycelium-box{background:var(--cr);border-radius:16px;padding:1.5rem;margin-top:1.25rem}
 .mycelium-box h3{font-size:.95rem;font-weight:700;color:var(--td);margin-bottom:.5rem}
@@ -90,16 +81,14 @@ section{padding:5rem 1.5rem}
 .soil-layers{display:flex;flex-direction:column;gap:3px;margin-top:.75rem}
 .layer{padding:.4rem .85rem;border-radius:7px;font-size:.78rem;font-weight:700;color:#fff}
 .l1{background:#68cec3}.l2{background:#45b7ab}.l3{background:#008b70}.l4{background:#00604c}.l5{background:#4f342f}
-
-/* SOIL LIFE - placed after mushroom section */
+/* SOIL LIFE */
 #soil-life{background:#fff;padding:4rem 1.5rem}
 #soil-life .tag{background:var(--tl);color:var(--td)}
 #soil-life .sec-title{color:var(--td)}
 #soil-life .sec-sub{color:var(--br)}
 .soil-wrap{border-radius:14px;overflow:hidden;margin-top:1.5rem;background:#1e5040}
 #sc{display:block;width:100%;height:260px}
-
-/* OUR STORY + TEAM hidden, accessible via menu */
+/* STORY + TEAM */
 #story,#team{display:none}
 #story.visible,#team.visible{display:block}
 .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center;margin-top:2.5rem}
@@ -111,13 +100,12 @@ section{padding:5rem 1.5rem}
 .ch-b h4{font-size:.88rem;font-weight:700;color:var(--td);margin-bottom:.18rem}
 .ch-b p{font-size:.82rem;color:var(--br);line-height:1.6}
 .story-img{border-radius:20px;overflow:hidden}
-.story-img img{width:100%;height:420px;object-fit:cover}
+.story-img .img-placeholder{width:100%;height:420px;background:linear-gradient(135deg,var(--tl),var(--t));display:flex;align-items:center;justify-content:center;font-size:5rem}
 .team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:1.25rem;margin-top:2.5rem}
 .team-card{background:var(--cr);border-radius:16px;padding:1.5rem;text-align:center}
 .team-av{width:64px;height:64px;border-radius:50%;background:var(--tl);margin:0 auto .85rem;display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#fff;font-weight:700}
 .team-card h3{font-size:.9rem;font-weight:700;color:var(--td);margin-bottom:.2rem}
 .team-card p{font-size:.78rem;color:var(--br)}
-
 /* PROGRAMS */
 #programs{background:var(--cr)}
 .prog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.4rem;margin-top:2.5rem}
@@ -134,8 +122,7 @@ section{padding:5rem 1.5rem}
 .prog-body h3{font-size:.97rem;font-weight:700;color:var(--td);margin-bottom:.4rem}
 .prog-body p{font-size:.84rem;color:var(--br);line-height:1.65}
 .prog-tag{display:inline-block;margin-top:.8rem;font-size:.72rem;font-weight:700;padding:.2rem .65rem;border-radius:50px;background:var(--cr);color:var(--td)}
-
-/* GALLERY SLIDER - landscape/phone ratio */
+/* GALLERY SLIDER */
 #space{background:var(--td);padding:5rem 0;overflow:hidden}
 #space .container{padding:0 1.5rem}
 #space .sec-title{color:#fff}
@@ -143,9 +130,8 @@ section{padding:5rem 1.5rem}
 #space .tag{background:rgba(255,255,255,.15);color:#fff}
 .slider-wrap{position:relative;margin-top:2rem;overflow:hidden;border-radius:18px}
 .slider-track{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1)}
-/* 16:9 landscape ratio like a horizontal phone photo */
 .slide{min-width:100%;aspect-ratio:16/9;flex-shrink:0;position:relative;overflow:hidden;background:#1a4a38;display:flex;align-items:center;justify-content:center}
-.slide img{width:100%;height:100%;object-fit:cover;object-position:center}
+.slide .slide-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:5rem;background:linear-gradient(135deg,#1a4a38,#2d7a5e)}
 .slide-cap{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,25,15,.72));padding:1.25rem 1.5rem .85rem;color:#fff;font-size:.86rem}
 .slide-cap strong{display:block;font-size:1rem;margin-bottom:.15rem}
 .sbtn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.3);color:#fff;width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:.2s;z-index:5}
@@ -154,7 +140,6 @@ section{padding:5rem 1.5rem}
 .sdots{display:flex;justify-content:center;gap:.5rem;margin-top:.9rem}
 .sdot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);border:none;cursor:pointer;transition:.3s;padding:0}
 .sdot.active{background:#fff;width:22px;border-radius:4px}
-
 /* IMPACT */
 #impact{background:var(--cr)}
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1.1rem;margin-top:2.5rem}
@@ -166,9 +151,7 @@ section{padding:5rem 1.5rem}
 .sico{font-size:1.35rem;margin-bottom:.35rem;display:block;transition:.3s}
 .sdg-row{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem;justify-content:center;align-items:center}
 .sdg-badge{display:flex;align-items:center;gap:.5rem;padding:.38rem .85rem;border-radius:8px;font-size:.76rem;font-weight:700;color:#fff}
-.sdg-badge img{width:32px;height:32px;border-radius:4px;object-fit:cover}
 .sdg4{background:#c31f33}.sdg12{background:#bf8b2e}.sdg13{background:#3f7e44}.sdg15{background:#56c02b}
-
 /* VISION */
 #vision{background:linear-gradient(140deg,#4f342f 0%,#77594f 100%);color:#fff;text-align:center;padding:5rem 1.5rem}
 #vision .tag{background:rgba(255,255,255,.15);color:#fff}
@@ -180,7 +163,6 @@ section{padding:5rem 1.5rem}
 .vgoal{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.13);border-radius:14px;padding:1.6rem;text-align:left}
 .vgoal h3{font-size:2rem;font-weight:700;color:var(--tl);margin-bottom:.35rem}
 .vgoal p{font-size:.86rem;color:rgba(255,255,255,.78);line-height:1.65}
-
 /* FEATURED */
 #featured{background:#fff}
 .media-wrap{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem}
@@ -188,7 +170,6 @@ section{padding:5rem 1.5rem}
 .mbadge:hover{background:var(--t);color:#fff;border-color:var(--t)}
 .mbadge .dot{width:7px;height:7px;border-radius:50%;background:var(--tm);flex-shrink:0;transition:.2s}
 .mbadge:hover .dot{background:rgba(255,255,255,.6)}
-
 /* CONTACT */
 #contact{background:var(--cr)}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;margin-top:2.5rem;align-items:start}
@@ -208,28 +189,22 @@ section{padding:5rem 1.5rem}
 .btn-sub{width:100%;padding:.75rem;background:var(--t);color:#fff;border:none;border-radius:50px;font-size:.9rem;font-weight:700;cursor:pointer;transition:.2s;margin-top:.4rem;letter-spacing:.04em}
 .btn-sub:hover{background:var(--td)}
 .form-ok{display:none;background:#e6f7f2;border:1.5px solid var(--tl);border-radius:10px;padding:1rem;text-align:center;color:var(--td);font-weight:700;margin-top:.75rem;font-size:.9rem}
-
 /* FOOTER */
 footer{background:var(--td);padding:1.75rem 1.5rem;text-align:center;color:rgba(255,255,255,.42);font-size:.76rem}
 footer a{color:rgba(255,255,255,.55);margin:0 .4rem}
 footer a:hover{color:#fff}
-
 /* RESPONSIVE */
-@media(max-width:900px){
-  nav{padding:.65rem 1rem}
-  .nav-item>a,.nav-item>.ndrop{font-size:.75rem;padding:.4rem .5rem}
-}
+@media(max-width:900px){nav{padding:.65rem 1rem}.nav-item>a,.nav-item>.ndrop{font-size:.75rem;padding:.4rem .5rem}}
 @media(max-width:768px){
-  .about-grid,.story-grid,.contact-grid{grid-template-columns:1fr}
-  .story-img{display:none}
-  .frow{grid-template-columns:1fr}
-  /* Switch to dropdown on mobile */
-  .nav-menu{display:none;flex-direction:column;position:absolute;top:56px;left:0;right:0;background:rgba(0,55,36,.97);padding:1rem;gap:.1rem;z-index:200}
-  .nav-menu.open{display:flex}
-  .nav-toggle{display:flex}
-  .drop{position:static;box-shadow:none;border:none;background:rgba(255,255,255,.06);border-radius:8px;margin-top:.2rem;padding:.3rem}
-  .nav-item:hover .drop{display:none}
-  .nav-item.open .drop{display:block}
+.about-grid,.story-grid,.contact-grid{grid-template-columns:1fr}
+.story-img{display:none}
+.frow{grid-template-columns:1fr}
+.nav-menu{display:none;flex-direction:column;position:absolute;top:56px;left:0;right:0;background:rgba(0,55,36,.97);padding:1rem;gap:.1rem;z-index:200}
+.nav-menu.open{display:flex}
+.nav-toggle{display:flex}
+.drop{position:static;box-shadow:none;border:none;background:rgba(255,255,255,.06);border-radius:8px;margin-top:.2rem;padding:.3rem}
+.nav-item:hover .drop{display:none}
+.nav-item.open .drop{display:block}
 }
 @media(max-width:480px){.prog-grid{grid-template-columns:1fr}}
 </style>
@@ -239,7 +214,7 @@ footer a:hover{color:#fff}
 <!-- NAV -->
 <nav id="nav">
   <div class="nav-logo">
-    <img src="images/leng-dei-logo.png" alt="Leng Dei">
+    <div style="width:34px;height:34px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem">🍄</div>
     <div class="nav-logo-text">
       <span class="nlen">Leng Dei</span>
       <span class="nkh">លេងដី</span>
@@ -278,7 +253,7 @@ footer a:hover{color:#fff}
   <canvas id="ptc"></canvas>
   <div class="hero-inner">
     <div class="hero-logo-wrap">
-      <img src="images/leng-dei-logo-white.png" alt="Leng Dei">
+      <div class="logo-placeholder">🍄</div>
     </div>
     <div class="hero-kh">លេងដី</div>
     <div class="hero-en">Leng Dei</div>
@@ -319,8 +294,6 @@ footer a:hover{color:#fff}
           <p>Notre jardin nourricier de 1 000 m² est une salle de classe vivante, ouverte à tous.</p>
           <blockquote>"La terre est le fondement de la vie. Tout ce qui pousse, pousse d'elle."</blockquote>
         </div>
-
-        <!-- MUSHROOM BOX -->
         <div class="mycelium-box">
           <h3>🍄 Why a mushroom?</h3>
           <p>Mushrooms are the 1% visible part of fungi. The other 99% — the mycelium — forms invisible underground networks connecting all living things. Care, connection, and community rooted beneath the surface.</p>
@@ -335,7 +308,7 @@ footer a:hover{color:#fff}
       </div>
       <div>
         <div class="about-img-box">
-          <img src="images/group-photo.jpg" alt="Local Gathering at Leng Dei">
+          <div class="img-placeholder">🌿</div>
           <div class="about-img-cap">Local Gathering · Mekong Cultural Hub 2025 · Phnom Penh, Cambodia</div>
         </div>
       </div>
@@ -343,7 +316,7 @@ footer a:hover{color:#fff}
   </div>
 </section>
 
-<!-- SOIL LIFE - right after mushroom/about section -->
+<!-- SOIL LIFE -->
 <section id="soil-life">
   <div class="container">
     <span class="tag">Soil Biodiversity</span>
@@ -353,7 +326,7 @@ footer a:hover{color:#fff}
   </div>
 </section>
 
-<!-- OUR STORY (hidden, menu only) -->
+<!-- OUR STORY -->
 <section id="story" style="background:var(--cr)">
   <div class="container">
     <span class="tag">Our Story</span>
@@ -370,18 +343,18 @@ footer a:hover{color:#fff}
         </div>
         <p>Started in 2019 as <em>Compost City</em>, winner of SmartSpark 3 at Impact Hub Phnom Penh. Since then: 500+ compost kits, 104 workshops, 1,600+ people trained.</p>
       </div>
-      <div class="story-img"><img src="images/group-photo.jpg" alt="Community at Leng Dei"></div>
+      <div class="story-img"><div class="img-placeholder">🌱</div></div>
     </div>
   </div>
 </section>
 
-<!-- OUR TEAM (hidden, menu only) -->
+<!-- OUR TEAM -->
 <section id="team" style="background:#fff">
   <div class="container">
     <span class="tag">Our Team</span>
     <h2 class="sec-title">The people behind Leng Dei</h2>
     <div class="team-grid">
-      <div class="team-card"><div class="team-av">S</div><h3>Samnang</h3><p>Co-founder &amp; Garden Lead</p></div>
+      <div class="team-card"><div class="team-av">S</div><h3>Sarun</h3><p>Garden &amp; Social Media</p></div>
       <div class="team-card"><div class="team-av">M</div><h3>Monorom</h3><p>Co-founder &amp; Community</p></div>
       <div class="team-card"><div class="team-av">C</div><h3>Chomrong</h3><p>Design &amp; Communications</p></div>
       <div class="team-card" style="background:#f0faf7;border:1.5px dashed var(--tl)"><div class="team-av" style="background:var(--bl);color:var(--bd)">+</div><h3 style="color:var(--br)">Join us</h3><p>We're growing — reach out!</p></div>
@@ -406,7 +379,7 @@ footer a:hover{color:#fff}
   </div>
 </section>
 
-<!-- GALLERY SLIDER - 16:9 landscape -->
+<!-- GALLERY SLIDER -->
 <section id="space">
   <div class="container">
     <span class="tag">The Space</span>
@@ -415,14 +388,13 @@ footer a:hover{color:#fff}
     <div class="slider-wrap">
       <div class="slider-track" id="sliderTrack">
         <div class="slide">
-          <img src="images/drone-overview.jpg" alt="Aerial view of Leng Dei">
+          <div class="slide-placeholder">🌿</div>
           <div class="slide-cap"><strong>Aerial view · Leng Dei Garden</strong>1,000m² of urban food garden in Phnom Penh</div>
         </div>
         <div class="slide">
-          <img src="images/group-photo.jpg" alt="Community gathering">
+          <div class="slide-placeholder">👥</div>
           <div class="slide-cap"><strong>Local Gathering · Mekong Cultural Hub 2025</strong>The community comes together at Leng Dei</div>
         </div>
-        <!-- Add slides: <div class="slide"><img src="images/your-photo.jpg" alt="..."><div class="slide-cap"><strong>Title</strong>Caption</div></div> -->
       </div>
       <button class="sbtn sprev" onclick="slideMove(-1)">&#8249;</button>
       <button class="sbtn snext" onclick="slideMove(1)">&#8250;</button>
@@ -446,10 +418,10 @@ footer a:hover{color:#fff}
     </div>
     <div class="sdg-row">
       <span style="font-size:.83rem;color:var(--br);font-weight:700;align-self:center">SDGs:</span>
-      <span class="sdg-badge sdg4"><img src="images/sdg4.png" alt="SDG 4">Quality Education</span>
-      <span class="sdg-badge sdg12"><img src="images/sdg12.png" alt="SDG 12">Responsible Consumption</span>
-      <span class="sdg-badge sdg13"><img src="images/sdg13.png" alt="SDG 13">Climate Action</span>
-      <span class="sdg-badge sdg15"><img src="images/sdg15.png" alt="SDG 15">Life on Land</span>
+      <span class="sdg-badge sdg4">📘 Quality Education</span>
+      <span class="sdg-badge sdg12">♻️ Responsible Consumption</span>
+      <span class="sdg-badge sdg13">🌡️ Climate Action</span>
+      <span class="sdg-badge sdg15">🌿 Life on Land</span>
     </div>
   </div>
 </section>
@@ -548,23 +520,20 @@ window.addEventListener('scroll',function(){
   document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60);
 });
 
-// Mobile hamburger toggle
+// Mobile hamburger
 document.getElementById('nt').addEventListener('click',function(){
   this.classList.toggle('open');
   document.getElementById('navMenu').classList.toggle('open');
 });
 
-// Mobile: tap ndrop to open submenu (not hover)
 if(window.innerWidth<=768){
   document.querySelectorAll('.ndrop').forEach(function(nd){
     nd.addEventListener('click',function(){
-      var li=this.parentElement;
-      li.classList.toggle('open');
+      this.parentElement.classList.toggle('open');
     });
   });
 }
 
-// Close mobile menu on link click
 document.querySelectorAll('#navMenu a').forEach(function(a){
   a.addEventListener('click',function(){
     document.getElementById('navMenu').classList.remove('open');
@@ -580,7 +549,7 @@ function switchLang(l,btn){
   btn.classList.add('active');
 }
 
-// Show hidden sections (Our Story / Our Team)
+// Show hidden sections
 function showSection(id){
   var el=document.getElementById(id);
   if(el){el.classList.add('visible');setTimeout(function(){el.scrollIntoView({behavior:'smooth'});},50);}
